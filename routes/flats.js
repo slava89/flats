@@ -5,7 +5,7 @@ var Flat = mongoose.model('Flat', {title: String});
 
 /* GET flats listing. */
 router.get('/', function(req, res, next) {
-    Flat.find((err, data) => {
+    Flat.find(function(err, data) {
         if (err) {
             return next(err);
         }
@@ -14,13 +14,13 @@ router.get('/', function(req, res, next) {
     })
 });
 
-router.post('/', function(req, res, next) {
-    const title = req.query.title;
+router.get('/new', function(req, res, next) {
+    var title = req.query.title;
     
     if(!title) {
         res.status(403).json({message: 'Title missing'})
     }
-    Flat.create({title: title}, (err, data) => {
+    Flat.create({title: title}, function(err, data) {
         if (err) {
             return next(err);
         }
